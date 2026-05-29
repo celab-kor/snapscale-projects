@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PKU — AI IFC Drawing QA/QC Review Engine | SnapScale Projects</title>
+<style>
+:root{--navy:#0f1e3c;--green:#10b981;--teal:#14b8a6;--blue:#3b82f6;--gold:#f59e0b;--orange:#f97316;--purple:#8b5cf6;--bg:#0a1628;--bg2:#0f1e3c;--card:#1a2d4f;--card2:#1e3460;--border:rgba(255,255,255,0.08);--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 40px;display:flex;align-items:center;gap:16px;}
+nav a{font-size:12px;color:var(--text3);text-decoration:none;}nav a:hover{color:var(--green);}
+nav .sep{color:var(--text3);}nav .current{color:var(--text2);}
+.hero{background:linear-gradient(135deg,#0a1628 0%,#0f2547 50%,#1a3a6b 100%);padding:60px 40px 50px;border-bottom:1px solid var(--border);}
+.status-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:var(--green);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:16px;}
+.hero h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#fff 0%,#10b981 60%,#34d399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.hero-sub{font-size:1rem;color:var(--text2);max-width:680px;margin-bottom:24px;}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--text3);}
+.container{max-width:1100px;margin:0 auto;padding:40px 40px 80px;}
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;text-decoration:none;color:var(--text);display:block;transition:all 0.2s;}
+.doc-card:hover{border-color:rgba(16,185,129,0.4);transform:translateY(-2px);}
+.doc-card::before{content:'';display:block;height:3px;margin:-24px -24px 18px;border-radius:12px 12px 0 0;}
+.dc-jtbd::before{background:linear-gradient(90deg,var(--green),var(--teal));}
+.dc-dev::before{background:linear-gradient(90deg,var(--blue),var(--purple));}
+.doc-icon{font-size:2rem;margin-bottom:10px;}
+.doc-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.doc-desc{font-size:13px;color:var(--text2);margin-bottom:12px;}
+.doc-meta{font-size:11px;color:var(--text3);}
+.phase-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0;}
+.phase-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.phase-num{font-size:11px;font-weight:700;color:var(--text3);margin-bottom:6px;}
+.phase-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;}
+.phase-duration{font-size:11px;color:var(--text3);}
+.phase-status{margin-top:8px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;display:inline-block;}
+.s-active{background:rgba(16,185,129,0.15);color:var(--green);}
+.s-planned{background:rgba(100,116,139,0.15);color:var(--text3);}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px 40px;font-size:12px;color:var(--text3);}
+@media(max-width:700px){.hero{padding:40px 20px 36px;}.hero h1{font-size:1.6rem;}.container{padding:30px 20px 60px;}.phase-list{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html">🏠 SnapScale Projects</a>
+  <span class="sep">/</span>
+  <span class="current">PKU · AI IFC Review Engine</span>
+</nav>
+
+<div class="hero">
+  <div class="status-badge">🟢 Active · POC Phase 1</div>
+  <h1>PKU — AI IFC Drawing QA/QC<br>Review Engine</h1>
+  <p class="hero-sub">필즈엔지니어링(PKU)과 함께 개발 중인 AI 기반 IFC 도면 자동 검토 시스템. 8개 Engineering Discipline × ~370개 체크리스트 항목을 AI가 자동으로 검토합니다.</p>
+  <div class="hero-meta">
+    <span>🏢 <strong>클라이언트:</strong> 필즈엔지니어링 (PKU)</span>
+    <span>📅 <strong>시작:</strong> 2026-05</span>
+    <span>⏱️ <strong>기간:</strong> 20주 (5개월)</span>
+    <span>🔧 <strong>분야:</strong> 8 Disciplines</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <h2 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px;margin-top:8px;">프로젝트 문서</h2>
+  <p style="font-size:14px;color:var(--text2);margin-bottom:20px;">PKU 프로젝트 관련 분석 자료 및 개발자 가이드를 확인하세요.</p>
+
+  <div class="doc-grid">
+    <a class="doc-card dc-jtbd" href="JTBD_v1.html">
+      <div class="doc-icon">🎯</div>
+      <div class="doc-title">JTBD Framework & Methodology v1.0</div>
+      <div class="doc-desc">Jobs To Be Done 분석 + MECE 체크리스트 매핑 + 4 Phase 실행 계획 + 6개 KPI. PKU 프로젝트 전체 방법론.</div>
+      <div class="doc-meta">1,398 lines · 2026-05-29 · Internal</div>
+    </a>
+    <a class="doc-card dc-dev" href="DevGuide_v1.html">
+      <div class="doc-icon">👨‍💻</div>
+      <div class="doc-title">개발자 해설서 v1.0</div>
+      <div class="doc-desc">초등학생도 이해하는 언어로 EPC·IFC·8 Disciplines·Rule Engine 개념 설명. CELab Wiki 41개 링크 연결.</div>
+      <div class="doc-meta">1,028 lines · 2026-05-29 · Developer Onboarding</div>
+    </a>
+  </div>
+
+  <h2 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px;margin-top:40px;">4 Phase 실행 계획</h2>
+  <div class="phase-list">
+    <div class="phase-card">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-title">Foundation</div>
+      <div class="phase-duration">Week 1~4</div>
+      <div class="phase-status s-active">🟢 진행중</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">Phase 2</div>
+      <div class="phase-title">Core Engine</div>
+      <div class="phase-duration">Week 5~10</div>
+      <div class="phase-status s-planned">⏳ 예정</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">Phase 3</div>
+      <div class="phase-title">Extended Disciplines</div>
+      <div class="phase-duration">Week 11~16</div>
+      <div class="phase-status s-planned">⏳ 예정</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">Phase 4</div>
+      <div class="phase-title">POC Delivery</div>
+      <div class="phase-duration">Week 17~20</div>
+      <div class="phase-status s-planned">⏳ 예정</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:24px;">
+    <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px;">PKU 체크리스트 현황</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:var(--green);">~370</div><div style="font-size:11px;color:var(--text3);">총 항목 수</div></div>
+      <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:var(--blue);">8</div><div style="font-size:11px;color:var(--text3);">Disciplines</div></div>
+      <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:var(--orange);">3</div><div style="font-size:11px;color:var(--text3);">Ontology Gap</div></div>
+      <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:var(--gold);">20주</div><div style="font-size:11px;color:var(--text3);">목표 기간</div></div>
+    </div>
+  </div>
+
+</div>
+<footer>PKU Project · SnapScale Projects Gallery · Confidential</footer>
+</body>
+</html>

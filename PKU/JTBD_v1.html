@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapScale × PKU — JTBD Framework & Project Methodology v1.0</title>
+<style>
+:root {
+  --navy: #0f1e3c;
+  --navy2: #1e3c72;
+  --navy3: #2a5298;
+  --green: #10b981;
+  --green2: #34d399;
+  --gold: #f59e0b;
+  --orange: #f97316;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --teal: #14b8a6;
+  --blue: #3b82f6;
+  --gray: #64748b;
+  --bg: #0a1628;
+  --bg2: #0f1e3c;
+  --bg3: #132040;
+  --card: #1a2d4f;
+  --card2: #1e3460;
+  --border: rgba(255,255,255,0.08);
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* HEADER */
+.hero {
+  background: linear-gradient(135deg, #0a1628 0%, #0f2547 40%, #1a3a6b 70%, #0f2040 100%);
+  padding: 60px 40px 50px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--green), var(--teal));
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text2);
+  margin-bottom: 28px;
+  max-width: 680px;
+}
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text3);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta strong { color: var(--text2); }
+
+/* WARNING */
+.warn {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-left: 4px solid var(--gold);
+  padding: 14px 20px;
+  margin: 24px 40px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+/* MAIN LAYOUT */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; }
+
+/* SECTION */
+.section { margin-top: 56px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.section-desc {
+  color: var(--text2);
+  font-size: 14px;
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0 28px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.card-sub {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .container { padding: 0 20px 60px; }
+  .hero { padding: 40px 20px 36px; }
+  .hero h1 { font-size: 1.6rem; }
+  .warn { margin: 16px 20px; }
+}
+
+/* JTBD CARDS */
+.jtbd-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.jtbd-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.jtbd-card.j1::before { background: linear-gradient(90deg, var(--green), var(--teal)); }
+.jtbd-card.j2::before { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+.jtbd-card.j3::before { background: linear-gradient(90deg, var(--orange), var(--gold)); }
+.jtbd-card.j4::before { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+.jtbd-card.j5::before { background: linear-gradient(90deg, var(--purple), var(--red)); }
+
+.jtbd-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.j1 .jtbd-num { color: var(--green); }
+.j2 .jtbd-num { color: var(--blue); }
+.j3 .jtbd-num { color: var(--orange); }
+.j4 .jtbd-num { color: var(--teal); }
+.j5 .jtbd-num { color: var(--purple); }
+
+.jtbd-job {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.jtbd-when {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.jtbd-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 16px; }
+@media (max-width: 900px) { .jtbd-grid { grid-template-columns: 1fr; } }
+
+.jtbd-col { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 14px; }
+.jtbd-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+.jtbd-col ul { list-style: none; }
+.jtbd-col ul li {
+  font-size: 12.5px;
+  color: var(--text2);
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+}
+.jtbd-col ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--text3);
+  font-size: 11px;
+}
+
+/* MECE TABLE */
+.mece-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.mece-table th {
+  background: var(--card2);
+  color: var(--text2);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+}
+.mece-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+.mece-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin: 1px;
+  white-space: nowrap;
+}
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.badge-orange { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.3); }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-purple { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+.badge-teal { background: rgba(20,184,166,0.15); color: var(--teal); border: 1px solid rgba(20,184,166,0.3); }
+.badge-gold { background: rgba(245,158,11,0.15); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
+.badge-gray { background: rgba(100,116,139,0.15); color: var(--gray); border: 1px solid rgba(100,116,139,0.3); }
+
+/* MILESTONE */
+.milestone-track { position: relative; padding-left: 32px; }
+.milestone-track::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--green) 0%, var(--blue) 50%, var(--purple) 100%);
+}
+.milestone {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.milestone::before {
+  content: '';
+  position: absolute;
+  left: -26px; top: 22px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.ms-p1::before { border-color: var(--green); background: rgba(16,185,129,0.2); }
+.ms-p2::before { border-color: var(--blue); background: rgba(59,130,246,0.2); }
+.ms-p3::before { border-color: var(--purple); background: rgba(139,92,246,0.2); }
+.ms-p4::before { border-color: var(--gold); background: rgba(245,158,11,0.2); }
+
+.ms-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ms-title { font-size: 1rem; font-weight: 700; color: #fff; }
+.ms-duration {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.ms-p1 .ms-duration { background: rgba(16,185,129,0.15); color: var(--green); }
+.ms-p2 .ms-duration { background: rgba(59,130,246,0.15); color: var(--blue); }
+.ms-p3 .ms-duration { background: rgba(139,92,246,0.15); color: var(--purple); }
+.ms-p4 .ms-duration { background: rgba(245,158,11,0.15); color: var(--gold); }
+
+.ms-tasks { margin-top: 12px; }
+.ms-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+}
+.ms-task:last-child { border-bottom: none; }
+.task-id {
+  min-width: 52px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  font-family: monospace;
+}
+.task-name { color: var(--text); flex: 1; }
+.task-owner {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+/* KPI TABLE */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .kpi-grid { grid-template-columns: 1fr; } }
+
+.kpi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+.kpi-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; font-weight: 600; letter-spacing: 0.5px; }
+.kpi-value { font-size: 1.6rem; font-weight: 800; margin-bottom: 4px; }
+.kpi-desc { font-size: 12px; color: var(--text3); }
+.kpi-p { color: var(--green); }
+.kpi-q { color: var(--blue); }
+.kpi-r { color: var(--orange); }
+
+/* TOOL CARDS */
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+.tool-icon { font-size: 2rem; margin-bottom: 10px; }
+.tool-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.tool-role { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
+.tool-features { list-style: none; }
+.tool-features li {
+  font-size: 12.5px;
+  color: var(--text2);
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+}
+.tool-features li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 11px; }
+.tool-rec {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: rgba(16,185,129,0.15);
+  color: var(--green);
+  border: 1px solid rgba(16,185,129,0.3);
+}
+.tool-sup {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: rgba(100,116,139,0.15);
+  color: var(--gray);
+  border: 1px solid rgba(100,116,139,0.3);
+}
+
+/* IBOX */
+.ibox {
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  border-left: 4px solid;
+  font-size: 13.5px;
+}
+.ibox.green { background: rgba(16,185,129,0.07); border-color: var(--green); color: var(--text); }
+.ibox.orange { background: rgba(249,115,22,0.07); border-color: var(--orange); color: var(--text); }
+.ibox.blue { background: rgba(59,130,246,0.07); border-color: var(--blue); color: var(--text); }
+.ibox.gold { background: rgba(245,158,11,0.07); border-color: var(--gold); color: var(--text); }
+.ibox.teal { background: rgba(20,184,166,0.07); border-color: var(--teal); color: var(--text); }
+.ibox.purple { background: rgba(139,92,246,0.07); border-color: var(--purple); color: var(--text); }
+.ibox strong { color: #fff; }
+
+/* STATS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+@media (max-width: 900px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-lbl { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* CHECKLIST ACCORDION */
+.disc-section { margin-bottom: 14px; }
+.disc-header {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+}
+.disc-name { font-size: 14px; font-weight: 700; color: #fff; }
+.disc-count { font-size: 12px; color: var(--text3); }
+.disc-meta { display: flex; gap: 8px; align-items: center; }
+
+/* GALLERY STRUCTURE */
+.gallery-tree {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.9;
+}
+.tree-dir { color: var(--gold); font-weight: 700; }
+.tree-file { color: var(--text2); }
+.tree-comment { color: var(--text3); }
+.tree-indent { color: var(--border); }
+
+/* FLOW DIAGRAM */
+.flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 20px 0; }
+.flow-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  min-width: 140px;
+  text-align: center;
+}
+.flow-arrow { color: var(--text3); font-size: 18px; padding: 0 6px; }
+
+/* FOOTER */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px 40px;
+  margin-top: 80px;
+  font-size: 12px;
+  color: var(--text3);
+}
+footer strong { color: var(--text2); }
+.ver { color: var(--text3); margin-top: 8px; font-family: monospace; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">SnapScale Internal · Confidential</div>
+  <h1>PKU Project — JTBD Framework<br>& Project Methodology v1.0</h1>
+  <p class="hero-sub">AI-Assisted IFC Drawing QA/QC Review Engine 개발을 위한 업무 방법론 설계.<br>PKU 체크리스트 → MECE 분석 → SnapScale 실행 태스크 → JTBD 기반 반복 가능 워크플로.</p>
+  <div class="hero-meta">
+    <span>📅 <strong>2026-05-29</strong></span>
+    <span>🏢 <strong>클라이언트: PKU (필즈엔지니어링)</strong></span>
+    <span>📋 <strong>체크리스트 항목: ~370개</strong></span>
+    <span>🔧 <strong>대상 분야: 8 Disciplines</strong></span>
+    <span>🔒 <strong>Confidential — SnapScale Internal</strong></span>
+  </div>
+</div>
+
+<div class="warn">
+  ⚠️ 본 문서는 SnapScale 내부 전략 검토용입니다. PKU 제출 체크리스트를 기반으로 AI가 분석·재구성한 자료이며, 일부 수치 및 범위는 팀 검토 후 확정이 필요합니다. 전문 엔지니어의 최종 판단을 대체하지 않습니다.
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- SECTION 0: 문서 정의 -->
+  <div class="section" id="doc-def">
+    <div class="section-label">Section 0 · Document Definition</div>
+    <div class="section-title">이 문서는 무엇인가?</div>
+    <p class="section-desc">PKU로부터 수령한 체크리스트의 성격과 목적을 정의하고, SnapScale 개발 범위로 번역합니다.</p>
+    <div class="divider"></div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">8</div>
+        <div class="stat-lbl">Engineering Disciplines</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~370</div>
+        <div class="stat-lbl">Review Checklist Items</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">General Categories (A~F)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">10</div>
+        <div class="stat-lbl">Cross-Discipline Correlations</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">1</div>
+        <div class="stat-lbl">Target: IFC Stage</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">공식 문서명</div>
+      <div style="font-size:1.1rem; color: var(--green); font-weight: 700; margin-bottom: 8px;">
+        "AI-Assisted IFC Drawing QA/QC Review Checklist"
+      </div>
+      <div class="card-sub">
+        <strong>원래 용도:</strong> AI 기반 엔지니어링 QA/QC 리뷰 툴 개발의 기능 참조서(Functional Reference) + 리뷰 로직 가이드라인.<br>
+        <strong>발행 목적:</strong> IFC(Issued For Construction) 도면과 관련 성과품에 대한 AI 리뷰 엔진 개발을 지원하기 위해 준비됨.
+      </div>
+      <div class="ibox blue" style="margin-top: 12px;">
+        <strong>핵심 원칙 (PKU 원문):</strong> "The AI system should not merely perform keyword or drafting checks, but should <strong>emulate the review mindset of experienced multidisciplinary EPC engineering reviewers.</strong>"
+        <br><br>→ SnapScale이 만드는 것은 단순 키워드/서식 검사기가 아니라, <strong>숙련 EPC 엔지니어의 검토 사고방식을 재현하는 AI</strong>입니다.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">✅ AI가 해야 할 것</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--text2);">
+          <li style="padding: 4px 0;">🔍 잠재적 엔지니어링 불일치 식별</li>
+          <li style="padding: 4px 0;">🔗 분야 간 협조(Interdisciplinary Coordination) 이슈 감지</li>
+          <li style="padding: 4px 0;">🏗️ 시공성(Constructability) 및 운전성(Operability) 우려 사항 강조</li>
+          <li style="padding: 4px 0;">📄 문서 완결성(Documentation Completeness) 검토</li>
+          <li style="padding: 4px 0;">⚙️ IFC 릴리즈 및 PE 스탬프 전 엔지니어 지원</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">❌ AI가 대체하지 않는 것</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--text2);">
+          <li style="padding: 4px 0;">📜 프로젝트별 코드 및 표준 (별도 제공)</li>
+          <li style="padding: 4px 0;">👤 클라이언트 사양서</li>
+          <li style="padding: 4px 0;">📑 엔지니어링 절차서</li>
+          <li style="padding: 4px 0;">🧠 전문 엔지니어의 판단 (PE Judgment)</li>
+          <li style="padding: 4px 0;">⚖️ PE 법적 책임 (Responsible Charge)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: MECE 분석 -->
+  <div class="section" id="mece">
+    <div class="section-label">Section 1 · MECE Analysis</div>
+    <div class="section-title">CELab Wiki 온톨로지 × PKU 체크리스트</div>
+    <p class="section-desc">누락 없이, 중복 없이 — PKU 8개 분야를 CELab 4축 필터(EPC Stage · Domain · Question Type · AutoFlow)에 매핑합니다.</p>
+    <div class="divider"></div>
+
+    <div class="ibox gold">
+      <strong>MECE 기준 설계:</strong> CELab Wiki의 인화공 Q&A 온톨로지(EPC Stage × Domain × Question Type × Product Link)를 PKU 체크리스트의 8 Discipline × 6 General Category에 교차 매핑.
+      신규 발견: <strong>Civil, Electrical, Architectural</strong> 3개 도메인이 CELab 현행 온톨로지에 미등록 → <strong>Ontology Gap</strong> 식별됨.
+    </div>
+
+    <table class="mece-table" style="margin-top: 16px;">
+      <thead>
+        <tr>
+          <th>PKU Discipline</th>
+          <th>항목 수(추정)</th>
+          <th>EPC Stage</th>
+          <th>CELab Domain</th>
+          <th>Gap 여부</th>
+          <th>AutoFlow 후보</th>
+          <th>난이도</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>General (A~F)</strong><br><span style="font-size:11px; color:var(--text3)">All disciplines</span></td>
+          <td>~60</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span><br><span class="badge badge-teal">IFC</span></td>
+          <td><span class="badge badge-gray">Cross-Discipline</span></td>
+          <td><span class="badge badge-green">Covered</span></td>
+          <td>Document Control, Completeness Check</td>
+          <td><span class="badge badge-green">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Process Engineering</strong></td>
+          <td>~26</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-green">Process</span></td>
+          <td><span class="badge badge-green">Covered</span></td>
+          <td>P&ID consistency, PSV sizing, Relief scenarios</td>
+          <td><span class="badge badge-orange">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Piping Engineering</strong></td>
+          <td>~36</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-green">Piping</span></td>
+          <td><span class="badge badge-green">Covered</span></td>
+          <td>Pipe class/spec, Support spacing, Stress check</td>
+          <td><span class="badge badge-orange">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mechanical Equipment</strong></td>
+          <td>~43</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-green">Equipment</span></td>
+          <td><span class="badge badge-green">Covered</span></td>
+          <td>Nozzle loads, Maintenance clearance, Anchor bolts</td>
+          <td><span class="badge badge-orange">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Instrumentation &amp; Controls</strong></td>
+          <td>~46</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-green">Instrumentation/Control</span></td>
+          <td><span class="badge badge-green">Covered</span></td>
+          <td>Tag consistency, SIL/SIF logic, Control narrative vs P&ID</td>
+          <td><span class="badge badge-red">Very High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Structural Engineering</strong></td>
+          <td>~26</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-orange">Equipment (Structural)</span></td>
+          <td><span class="badge badge-gold">Partial</span></td>
+          <td>Load path continuity, Foundation reactions, Connection details</td>
+          <td><span class="badge badge-orange">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Electrical Engineering</strong></td>
+          <td>~46</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-red">⚠️ NOT IN ONTOLOGY</span></td>
+          <td><span class="badge badge-red">Gap</span></td>
+          <td>Load calculations, Cable sizing, Hazardous area cert</td>
+          <td><span class="badge badge-red">Very High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Civil Engineering</strong></td>
+          <td>~23</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-red">⚠️ NOT IN ONTOLOGY</span></td>
+          <td><span class="badge badge-red">Gap</span></td>
+          <td>Foundation checks, Drainage routing, Underground utilities</td>
+          <td><span class="badge badge-green">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Architectural</strong></td>
+          <td>~40</td>
+          <td><span class="badge badge-blue">Detailed Engineering</span></td>
+          <td><span class="badge badge-red">⚠️ NOT IN ONTOLOGY</span></td>
+          <td><span class="badge badge-red">Gap</span></td>
+          <td>Egress, HVAC interface, Fire rating, Building codes</td>
+          <td><span class="badge badge-green">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cross-Discipline Correlation</strong></td>
+          <td>10</td>
+          <td><span class="badge badge-teal">IFC Readiness</span></td>
+          <td><span class="badge badge-gray">Cross-all</span></td>
+          <td><span class="badge badge-gold">New Category</span></td>
+          <td>P&ID vs Layout, Tag consistency, Vendor vs Design</td>
+          <td><span class="badge badge-red">Very High</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ibox orange" style="margin-top: 20px;">
+      <strong>CELab 온톨로지 Gap 발견 (3개):</strong> Electrical Engineering, Civil Engineering, Architectural이 현행 CELab Wiki 온톨로지(Domain 필터)에 미포함.
+      CELab Wiki 온톨로지 확장 또는 PKU 전용 별도 분류 체계 수립 필요. 단기적으로는 "EPC Disciplines — Extended" 카테고리로 처리 권장.
+    </div>
+  </div>
+
+  <!-- SECTION 2: JTBD FRAMEWORK -->
+  <div class="section" id="jtbd">
+    <div class="section-label">Section 2 · Jobs To Be Done Framework</div>
+    <div class="section-title">JTBD — 5 Core Jobs</div>
+    <p class="section-desc">SnapScale가 PKU 체크리스트를 받았을 때 "수행해야 할 핵심 업무"를 JTBD 형식으로 정의합니다.<br>
+    <strong>JTBD 구조:</strong> 상황(When) + 동기(We need to) + 기대 결과(So that)</p>
+    <div class="divider"></div>
+
+    <!-- Job 1 -->
+    <div class="jtbd-card j1">
+      <div class="jtbd-num">Job 1 · Parse & Classify</div>
+      <div class="jtbd-job">클라이언트의 엔지니어링 QA 요구사항을 AI가 처리 가능한 구조로 변환</div>
+      <div class="jtbd-when">
+        When: 클라이언트로부터 엔지니어링 체크리스트 문서(DOCX/PDF/Excel)를 수령했을 때<br>
+        We need to: 모든 체크 항목을 분야·단계·유형별로 MECE하게 분류하고 기계 판독 가능한 형식으로 구조화<br>
+        So that: AI 엔진이 각 항목에 대해 실제 도면을 검토하는 로직을 적용할 수 있도록
+      </div>
+      <div class="jtbd-grid">
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Functional Jobs</div>
+          <ul>
+            <li>DOCX → 구조화된 JSON/DB 변환</li>
+            <li>8 Discipline 분류 자동화</li>
+            <li>CELab 온톨로지 매핑</li>
+            <li>중복/모순 항목 감지</li>
+            <li>Gap 분석 보고서 생성</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Social Jobs</div>
+          <ul>
+            <li>클라이언트에게 "우리는 체계적"임을 증명</li>
+            <li>EPC 전문성 보유 증명</li>
+            <li>내부 팀 온보딩 속도 향상</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Emotional Jobs</div>
+          <ul>
+            <li>팀이 "놓친 게 없다"는 확신 확보</li>
+            <li>범위 명확화로 불안 해소</li>
+            <li>반복 가능한 방법론 확립 만족</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px;">
+        <span class="badge badge-green">담당: SnapScale AI팀</span>
+        <span class="badge badge-blue">산출물: Structured Checklist DB</span>
+        <span class="badge badge-teal">기간: Week 1~2</span>
+      </div>
+    </div>
+
+    <!-- Job 2 -->
+    <div class="jtbd-card j2">
+      <div class="jtbd-num">Job 2 · Rule Extraction</div>
+      <div class="jtbd-job">자연어 체크리스트를 AI 리뷰 로직(Rules)으로 변환</div>
+      <div class="jtbd-when">
+        When: 구조화된 체크 항목이 준비되었을 때<br>
+        We need to: 각 항목을 "어떤 도면에서, 무엇을, 어떻게 확인하는가"의 검증 가능한 규칙으로 변환<br>
+        So that: AI가 실제 IFC 도면 파일에 적용할 수 있는 실행 가능한 검토 로직이 완성되도록
+      </div>
+      <div class="jtbd-grid">
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Functional Jobs</div>
+          <ul>
+            <li>Rule template 설계 (조건-대상-기준)</li>
+            <li>분야별 Rule set 작성</li>
+            <li>우선순위 Rule 선별 (Pareto: 20% → 80%)</li>
+            <li>예외 조건 식별</li>
+            <li>Rule 버전 관리 체계</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Social Jobs</div>
+          <ul>
+            <li>PE 급 검토자와의 신뢰 구축</li>
+            <li>엔지니어 언어로 소통 가능한 AI 증명</li>
+            <li>PKU 내부 검토 통과</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Emotional Jobs</div>
+          <ul>
+            <li>"AI가 실제로 이해한다"는 신뢰</li>
+            <li>규칙 기반 투명성으로 블랙박스 우려 해소</li>
+            <li>엔지니어 참여 의지 증가</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px;">
+        <span class="badge badge-green">담당: SnapScale + PKU 검토팀</span>
+        <span class="badge badge-blue">산출물: Rule Engine v0.1</span>
+        <span class="badge badge-teal">기간: Week 3~6</span>
+      </div>
+    </div>
+
+    <!-- Job 3 -->
+    <div class="jtbd-card j3">
+      <div class="jtbd-num">Job 3 · Document Parsing</div>
+      <div class="jtbd-job">IFC 도면/문서 파일에서 AI 검토 가능한 데이터 추출</div>
+      <div class="jtbd-when">
+        When: AI가 실제 IFC 도면(PDF, P&ID, GA, 배관 레이아웃 등)을 입력받았을 때<br>
+        We need to: 텍스트·태그·치수·기호를 구조화된 데이터로 파싱하여 Rule Engine에 공급<br>
+        So that: 각 체크 항목의 충족 여부를 자동으로 판단할 수 있도록
+      </div>
+      <div class="jtbd-grid">
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Functional Jobs</div>
+          <ul>
+            <li>PDF/CAD 텍스트 추출</li>
+            <li>Tag 번호·좌표 파싱</li>
+            <li>도면 메타데이터 추출 (Rev, Title, Sheet)</li>
+            <li>멀티-도면 상호 참조</li>
+            <li>데이터 일관성 교차 검증</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Social Jobs</div>
+          <ul>
+            <li>기존 EPC 워크플로와의 호환성 증명</li>
+            <li>CAD/DCC 통합 가능성 시연</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Emotional Jobs</div>
+          <ul>
+            <li>실무 파일 바로 처리 가능한 툴이라는 확신</li>
+            <li>특별 변환 작업 없이 사용 가능</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px;">
+        <span class="badge badge-green">담당: SnapScale 개발팀</span>
+        <span class="badge badge-blue">산출물: Document Parsing Engine v0.1</span>
+        <span class="badge badge-teal">기간: Week 3~8</span>
+      </div>
+    </div>
+
+    <!-- Job 4 -->
+    <div class="jtbd-card j4">
+      <div class="jtbd-num">Job 4 · Review Execution & Reporting</div>
+      <div class="jtbd-job">AI 리뷰 결과를 엔지니어가 신뢰하고 활용할 수 있는 보고서로 전달</div>
+      <div class="jtbd-when">
+        When: Rule Engine + Document Parser가 결과를 생성했을 때<br>
+        We need to: 체크 항목별 통과/주의/실패 결과를 근거와 함께 표시하고, PE 최종 판단을 지원하는 형식으로 보고<br>
+        So that: 엔지니어가 AI 리뷰 결과를 검토하고 IFC 릴리즈 여부를 결정할 수 있도록
+      </div>
+      <div class="jtbd-grid">
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Functional Jobs</div>
+          <ul>
+            <li>리뷰 대시보드 설계</li>
+            <li>이슈 우선순위 자동 분류</li>
+            <li>근거 문서 참조 연결</li>
+            <li>리뷰 이력 추적</li>
+            <li>PDF 보고서 내보내기</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Social Jobs</div>
+          <ul>
+            <li>PE 스탬프 전 공식 QA 기록 제공</li>
+            <li>감사(Audit) 이력 확보</li>
+            <li>클라이언트와 공동 검토 가능성</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Emotional Jobs</div>
+          <ul>
+            <li>리뷰어가 "AI가 도와준다"는 파트너 감각</li>
+            <li>놓친 항목에 대한 두려움 감소</li>
+            <li>LD 리스크 감소 확신</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px;">
+        <span class="badge badge-green">담당: SnapScale UX + PM</span>
+        <span class="badge badge-blue">산출물: Review Dashboard v0.1</span>
+        <span class="badge badge-teal">기간: Week 9~12</span>
+      </div>
+    </div>
+
+    <!-- Job 5 -->
+    <div class="jtbd-card j5">
+      <div class="jtbd-num">Job 5 · Methodology Scaling</div>
+      <div class="jtbd-job">PKU에서 검증한 방법론을 다른 클라이언트에게 반복 적용할 수 있는 표준화된 프로세스로 전환</div>
+      <div class="jtbd-when">
+        When: PKU POC가 완료되고 결과가 나왔을 때<br>
+        We need to: 체크리스트 → MECE → 태스크 → AI 개발 → 보고의 전체 파이프라인을 표준 템플릿화<br>
+        So that: 새 클라이언트로부터 체크리스트를 받을 때마다 2배 빠르게 시작하고, 내부 학습 비용을 최소화하도록
+      </div>
+      <div class="jtbd-grid">
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Functional Jobs</div>
+          <ul>
+            <li>프로젝트 갤러리 구조 설계</li>
+            <li>방법론 문서화 (이 문서)</li>
+            <li>체크리스트 분류 자동화 스크립트</li>
+            <li>Rule 재사용 라이브러리 구축</li>
+            <li>KPI 벤치마크 데이터 누적</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Social Jobs</div>
+          <ul>
+            <li>SnapScale = "EPC AI 방법론 표준" 포지셔닝</li>
+            <li>다음 클라이언트 영업 레퍼런스</li>
+            <li>팀 역량 외부 가시화</li>
+          </ul>
+        </div>
+        <div class="jtbd-col">
+          <div class="jtbd-col-title">Emotional Jobs</div>
+          <ul>
+            <li>팀이 "우리만의 방법론이 있다"는 자부심</li>
+            <li>반복 가능성에서 오는 심리적 안정감</li>
+            <li>성장 가시화</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px;">
+        <span class="badge badge-green">담당: 김상윤 대표 + 전략팀</span>
+        <span class="badge badge-blue">산출물: SnapScale Project Playbook v1</span>
+        <span class="badge badge-teal">기간: Week 17~20</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TASK BREAKDOWN & MILESTONES -->
+  <div class="section" id="milestones">
+    <div class="section-label">Section 3 · Execution Plan</div>
+    <div class="section-title">PKU POC 실행 계획 — 마일스톤 & 태스크</div>
+    <p class="section-desc">JTBD 5개 Job을 4개 Phase로 분해하고 태스크·담당자·기간을 배정합니다. 총 예상 기간: 20주 (5개월)</p>
+    <div class="divider"></div>
+
+    <div class="ibox teal">
+      <strong>실행 원칙:</strong> (1) Process + Piping + I&C 먼저 — O&G EPC의 핵심 가치 창출 영역. (2) 도메인 전문가와 동시 작업 — AI 규칙 개발은 엔지니어 검토 없이 단독 불가. (3) 각 Phase 완료 시 PKU와 중간 리뷰 — 방향 조정 기회 확보.
+    </div>
+
+    <div class="milestone-track">
+
+      <div class="milestone ms-p1">
+        <div class="ms-header">
+          <div class="ms-title">Phase 1 · Foundation — 체크리스트 구조화 + 인프라 구축</div>
+          <div class="ms-duration">Week 1~4</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text3); margin: 6px 0 10px;">
+          KPI: 전체 ~370개 항목 100% 구조화 완료 | CELab 온톨로지 매핑 완료 | Gap 3개 분야 분류 체계 확정
+        </div>
+        <div class="ms-tasks">
+          <div class="ms-task">
+            <span class="task-id">T1.1</span>
+            <span class="task-name">전체 체크리스트 JSON 변환 (8 Discipline × 항목별 구조화)</span>
+            <span class="task-owner">AI팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T1.2</span>
+            <span class="task-name">CELab 온톨로지 매핑 + Gap 분석 문서 작성</span>
+            <span class="task-owner">PM + AI팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T1.3</span>
+            <span class="task-name">IFC 도면 파싱 파이프라인 프로토타입 (PDF→텍스트+태그 추출)</span>
+            <span class="task-owner">개발팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T1.4</span>
+            <span class="task-name">테스트 데이터셋 준비 (PKU 제공 샘플 IFC 도면 3~5종)</span>
+            <span class="task-owner">PM → PKU 협의</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T1.5</span>
+            <span class="task-name">Rule 템플릿 설계 (조건-대상-기준-결과 4단 구조)</span>
+            <span class="task-owner">AI팀 + 엔지니어</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone ms-p2">
+        <div class="ms-header">
+          <div class="ms-title">Phase 2 · Core Engine — Process / Piping / I&C 모듈 개발</div>
+          <div class="ms-duration">Week 5~10</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text3); margin: 6px 0 10px;">
+          KPI: 3개 핵심 분야 Rule coverage ≥60% | 샘플 도면 리뷰 정확도 ≥70% (PE 판단 대비) | False Positive ≤30%
+        </div>
+        <div class="ms-tasks">
+          <div class="ms-task">
+            <span class="task-id">T2.1</span>
+            <span class="task-name">Process Engineering Module — P&ID 일관성, PSV 크기, Relief 시나리오 Rule 개발</span>
+            <span class="task-owner">AI팀 + Process Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T2.2</span>
+            <span class="task-name">Piping Engineering Module — Pipe class/spec, Stress, Support 간격 Rule 개발</span>
+            <span class="task-owner">AI팀 + Piping Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T2.3</span>
+            <span class="task-name">I&C Module — 태그 일관성, SIL/SIF 로직, Control narrative vs P&ID Rule 개발</span>
+            <span class="task-owner">AI팀 + I&C Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T2.4</span>
+            <span class="task-name">General Checklist (Section A~F) 자동화 — 문서 완결성, Revision 무결성 체크</span>
+            <span class="task-owner">AI팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T2.5</span>
+            <span class="task-name">1차 내부 리뷰 — 샘플 도면 적용 + PE 검토 피드백 수집</span>
+            <span class="task-owner">PM + PKU 리뷰어</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone ms-p3">
+        <div class="ms-header">
+          <div class="ms-title">Phase 3 · Extended Disciplines — Mechanical / Electrical / Civil / Structural / Architectural</div>
+          <div class="ms-duration">Week 11~16</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text3); margin: 6px 0 10px;">
+          KPI: 전체 8 Discipline Rule coverage ≥50% | Cross-discipline correlation 10개 항목 중 ≥7개 자동화
+        </div>
+        <div class="ms-tasks">
+          <div class="ms-task">
+            <span class="task-id">T3.1</span>
+            <span class="task-name">Mechanical Equipment Module — Nozzle loads, 유지보수 clearance, 앵커볼트</span>
+            <span class="task-owner">AI팀 + Mech. Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T3.2</span>
+            <span class="task-name">Electrical Module — Load 계산, 케이블 크기, Hazardous Area 등급</span>
+            <span class="task-owner">AI팀 + Elec. Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T3.3</span>
+            <span class="task-name">Civil + Structural + Architectural 통합 모듈 (기초 설계, 하중, 건축 코드)</span>
+            <span class="task-owner">AI팀 + Civil/Arch. Eng.</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T3.4</span>
+            <span class="task-name">Cross-Discipline Correlation Engine — P&ID vs 레이아웃, 태그 일관성 등 10개 항목</span>
+            <span class="task-owner">AI팀 (핵심)</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T3.5</span>
+            <span class="task-name">2차 중간 리뷰 — PKU와 공동 리뷰 세션, 우선순위 재조정</span>
+            <span class="task-owner">PM + 김상윤</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone ms-p4">
+        <div class="ms-header">
+          <div class="ms-title">Phase 4 · POC Delivery & Methodology Packaging</div>
+          <div class="ms-duration">Week 17~20</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text3); margin: 6px 0 10px;">
+          KPI: End-to-end 리뷰 완료 1건 이상 | 리뷰 시간 절감 ≥30% vs 수동 | 클라이언트 만족도 ≥4/5 | Playbook v1 완성
+        </div>
+        <div class="ms-tasks">
+          <div class="ms-task">
+            <span class="task-id">T4.1</span>
+            <span class="task-name">End-to-end 리뷰 워크플로 통합 — Rule Engine + Parser + Dashboard 연결</span>
+            <span class="task-owner">개발팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T4.2</span>
+            <span class="task-name">PKU 실제 IFC 도면 파일럿 테스트 (최소 1개 프로젝트 패키지)</span>
+            <span class="task-owner">PM + PKU</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T4.3</span>
+            <span class="task-name">KPI 측정 및 최종 보고서 작성 (절감 시간, 정확도, 이슈 분류)</span>
+            <span class="task-owner">PM + 김상윤</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T4.4</span>
+            <span class="task-name">SnapScale Project Playbook v1 — 이 방법론의 표준 문서화</span>
+            <span class="task-owner">전략팀</span>
+          </div>
+          <div class="ms-task">
+            <span class="task-id">T4.5</span>
+            <span class="task-name">프로젝트 갤러리 PKU 페이지 발행 (내부 공유용)</span>
+            <span class="task-owner">PM</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: KPI -->
+  <div class="section" id="kpi">
+    <div class="section-label">Section 4 · KPI Dashboard</div>
+    <div class="section-title">측정 가능한 성공 지표</div>
+    <p class="section-desc">각 Phase 완료 시점에 아래 KPI를 측정하고 PKU와 공유합니다.</p>
+    <div class="divider"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Review Coverage Rate</div>
+        <div class="kpi-value kpi-p">≥ 60%</div>
+        <div class="kpi-desc">AI가 능동적으로 체크할 수 있는 항목 비율. Phase 2 완료 시 목표.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Review Accuracy</div>
+        <div class="kpi-value kpi-q">≥ 70%</div>
+        <div class="kpi-desc">PE 리뷰어 판단 대비 AI 결과 일치율. False Positive ≤30% 포함.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Time Savings</div>
+        <div class="kpi-value kpi-r">≥ 30%</div>
+        <div class="kpi-desc">기존 수동 리뷰 대비 시간 절감. Phase 4 파일럿 측정 기준.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cross-Discipline Coverage</div>
+        <div class="kpi-value kpi-p">≥ 7/10</div>
+        <div class="kpi-desc">10개 Cross-discipline 항목 중 AI 자동 처리 개수. Phase 3 목표.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Client Satisfaction</div>
+        <div class="kpi-value kpi-q">≥ 4/5</div>
+        <div class="kpi-desc">PKU 리뷰어 만족도 설문. Phase 4 파일럿 완료 후 측정.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Methodology Reusability</div>
+        <div class="kpi-value kpi-r">≤ 2주</div>
+        <div class="kpi-desc">새 클라이언트 체크리스트 → 첫 AI 적용까지 소요 시간. Playbook v1 기준.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: TOOL ECOSYSTEM -->
+  <div class="section" id="tools">
+    <div class="section-label">Section 5 · Tool Ecosystem</div>
+    <div class="section-title">SnapScale 업무 문화 — 도구 생태계 권고</div>
+    <p class="section-desc">Notion · Slack · Google Workspace · GitHub Pages — 각 도구의 역할과 통합 방식을 정의합니다.</p>
+    <div class="divider"></div>
+
+    <div class="ibox green" style="margin-bottom: 20px;">
+      <strong>권고안 요약:</strong> <strong>Notion을 허브</strong>로 채택 — 프로젝트별 DB + 클라이언트 공유 + API 통합이 가장 균형 잡힌 선택. GitHub Pages/CELab Wiki는 지식 공개용, Slack은 팀 커뮤니케이션, Google Sheets는 KPI 데이터 연동용으로 역할 분리.
+    </div>
+
+    <div class="grid-2">
+      <div class="tool-card">
+        <div class="tool-icon">📋</div>
+        <div class="tool-name">Notion</div>
+        <div class="tool-role">허브 · 프로젝트 관리 + 클라이언트 공유</div>
+        <ul class="tool-features">
+          <li>회사별 프로젝트 DB (PKU, 현대ENG, 한울…)</li>
+          <li>체크리스트 → 태스크 변환 DB 뷰</li>
+          <li>클라이언트와 선택적 공유 페이지</li>
+          <li>마일스톤·KPI 대시보드</li>
+          <li>방법론 문서 + Playbook 보관소</li>
+          <li>Notion API로 내부 툴 연동 가능</li>
+        </ul>
+        <span class="tool-rec">★ 주 허브 권고</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🔵</div>
+        <div class="tool-name">Slack</div>
+        <div class="tool-role">팀 커뮤니케이션 + 알림</div>
+        <ul class="tool-features">
+          <li>#pku-project 전용 채널</li>
+          <li>Notion/GitHub 변경사항 알림 연동</li>
+          <li>엔지니어링 Q&A 스레드 기록</li>
+          <li>외부 협력사 게스트 초대</li>
+          <li>AI 리뷰 결과 요약 봇 (추후)</li>
+        </ul>
+        <span class="tool-sup">보조 커뮤니케이션</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📊</div>
+        <div class="tool-name">Google Sheets</div>
+        <div class="tool-role">KPI 데이터 + 체크리스트 원본 관리</div>
+        <ul class="tool-features">
+          <li>370개 체크 항목 마스터 시트</li>
+          <li>Rule 개발 진행률 추적</li>
+          <li>KPI 측정 데이터 (시간, 정확도)</li>
+          <li>Looker Studio 대시보드 연결</li>
+          <li>엔지니어 검토 코멘트 기록</li>
+        </ul>
+        <span class="tool-sup">데이터 & 추적</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🌐</div>
+        <div class="tool-name">GitHub / CELab Wiki</div>
+        <div class="tool-role">코드 관리 + 지식 공개 갤러리</div>
+        <ul class="tool-features">
+          <li>AI 엔진 코드 버전 관리</li>
+          <li>Rule Engine 오픈소스 레퍼런스</li>
+          <li>프로젝트 갤러리 (회사별 공개 성과)</li>
+          <li>CELab Wiki = EPC 지식 기반 (공개)</li>
+          <li>PKU 사례 → Wiki 케이스 스터디</li>
+        </ul>
+        <span class="tool-sup">코드 + 지식 공유</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+      <div class="card-title">통합 워크플로 — 도구 역할 분담</div>
+      <div class="flow" style="margin-top: 14px;">
+        <div class="flow-step" style="border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.08);">PKU 체크리스트 수령</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 1px solid rgba(59,130,246,0.3); background: rgba(59,130,246,0.08);">Google Sheets<br><span style="font-size:10px; color:var(--text3)">구조화 + 분류</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 1px solid rgba(245,158,11,0.3); background: rgba(245,158,11,0.08);">Notion<br><span style="font-size:10px; color:var(--text3)">태스크 + 마일스톤</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08);">GitHub<br><span style="font-size:10px; color:var(--text3)">Rule 개발 + 코드</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 1px solid rgba(20,184,166,0.3); background: rgba(20,184,166,0.08);">PKU 공유<br><span style="font-size:10px; color:var(--text3)">Notion 공유 페이지</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: PROJECT GALLERY STRUCTURE -->
+  <div class="section" id="gallery">
+    <div class="section-label">Section 6 · Project Gallery</div>
+    <div class="section-title">프로젝트 갤러리 구조 설계</div>
+    <p class="section-desc">GitHub 기반 신규 갤러리 또는 CELab Wiki 확장으로 회사별 프로젝트를 정리하는 구조를 제안합니다.</p>
+    <div class="divider"></div>
+
+    <div class="ibox blue">
+      <strong>두 가지 선택지:</strong> (A) CELab Wiki에 새 Axis로 "Projects" 추가 — 기존 인프라 재사용, 빠른 시작. (B) 별도 GitHub 레포 `celab-kor/snapscale-projects` 생성 — 독립 관리, 확장성.
+      <br>→ <strong>권고: (A) CELab Wiki Axis 확장</strong> — 개발 부담 최소화, 기존 배포 파이프라인 재사용, 접근 제어 일원화.
+    </div>
+
+    <div class="gallery-tree">
+      <span class="tree-dir">celab-wiki/</span><br>
+      <span class="tree-indent">├── </span><span class="tree-dir">lectures/</span><span class="tree-comment">  ← 기존 knowledge axis</span><br>
+      <span class="tree-indent">│   ├── </span><span class="tree-file">01-*.html ... 09-*.html</span><br>
+      <span class="tree-indent">│   └── </span><span class="tree-dir">projects/</span><span class="tree-comment">  ← 신규 추가 (Axis 5: Projects)</span><br>
+      <span class="tree-indent">│       ├── </span><span class="tree-file">projects-index.html</span><span class="tree-comment">  ← 갤러리 허브 페이지</span><br>
+      <span class="tree-indent">│       ├── </span><span class="tree-dir">PKU/</span><br>
+      <span class="tree-indent">│       │   ├── </span><span class="tree-file">pku-overview.html</span><span class="tree-comment">  ← 프로젝트 개요 + POC 계약 범위</span><br>
+      <span class="tree-indent">│       │   ├── </span><span class="tree-file">pku-jtbd.html</span><span class="tree-comment">  ← 이 문서 (JTBD + 방법론)</span><br>
+      <span class="tree-indent">│       │   ├── </span><span class="tree-file">pku-checklist-mece.html</span><span class="tree-comment">  ← MECE 분석 상세</span><br>
+      <span class="tree-indent">│       │   └── </span><span class="tree-file">pku-roadmap.html</span><span class="tree-comment">  ← 4 Phase 로드맵</span><br>
+      <span class="tree-indent">│       ├── </span><span class="tree-dir">HyundaiENG/</span><span class="tree-comment">  ← 예정 (현대엔지니어링)</span><br>
+      <span class="tree-indent">│       └── </span><span class="tree-dir">Hanul/</span><span class="tree-comment">  ← 예정 (한울원자력)</span><br>
+      <span class="tree-indent">└── </span><span class="tree-file">index.html</span><span class="tree-comment">  ← hero stats: Axis 5 추가</span>
+    </div>
+
+    <div class="grid-2" style="margin-top: 16px;">
+      <div class="card">
+        <div class="card-title">각 프로젝트 페이지 포함 내용</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--text2);">
+          <li style="padding: 4px 0;">📋 클라이언트 계약 개요 + 범위</li>
+          <li style="padding: 4px 0;">🎯 JTBD 분석 (이 문서와 같은 형식)</li>
+          <li style="padding: 4px 0;">📊 MECE 체크리스트 분석</li>
+          <li style="padding: 4px 0;">🗺️ Phase별 로드맵 + 현재 진행 상태</li>
+          <li style="padding: 4px 0;">📈 KPI 대시보드 (측정치 업데이트)</li>
+          <li style="padding: 4px 0;">📚 학습 포인트 + Lessons Learned</li>
+          <li style="padding: 4px 0;">🔗 Notion/GitHub 연동 링크</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">접근 권한 설계</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--text2);">
+          <li style="padding: 4px 0;">🔒 <strong>비공개 (기본):</strong> Cloudflare Access OTP</li>
+          <li style="padding: 4px 0;">📤 <strong>클라이언트 공유:</strong> 특정 페이지 Notion 링크로</li>
+          <li style="padding: 4px 0;">🌐 <strong>공개 케이스 스터디:</strong> 계약 완료 후 익명화 발행</li>
+          <li style="padding: 4px 0;">👥 <strong>팀 내부:</strong> celab@snapscale.io OTP</li>
+          <li style="padding: 4px 0;">📱 <strong>접근:</strong> celab-wiki.pages.dev/projects/</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: METHODOLOGY ALGORITHM -->
+  <div class="section" id="algorithm">
+    <div class="section-label">Section 7 · Repeatable Algorithm</div>
+    <div class="section-title">반복 가능한 실행 알고리즘</div>
+    <p class="section-desc">PKU에서 검증 후, 다음 클라이언트에도 동일하게 적용할 수 있는 표준화된 절차 흐름입니다.</p>
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-title">Client Checklist → AI Engine 표준 파이프라인</div>
+      <div style="margin-top: 16px;">
+
+        <div style="display: grid; grid-template-columns: 40px 1fr; gap: 0; align-items: start;">
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(16,185,129,0.2); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--green);">1</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 60px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">INTAKE — 체크리스트 수령 & 범위 확인</div>
+            <div style="font-size: 12.5px; color: var(--text2);">클라이언트로부터 문서 수령 → 분야·항목 수 카운트 → 계약 범위(Priority Disciplines) 확인 → 샘플 도면 데이터셋 요청</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(59,130,246,0.2); border: 2px solid var(--blue); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--blue);">2</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 60px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">MECE PARSE — 구조화 & 온톨로지 매핑</div>
+            <div style="font-size: 12.5px; color: var(--text2);">자연어 항목 → 구조화 DB → CELab 온톨로지(EPC Stage × Domain × Type) 매핑 → Gap 리포트 생성 → 클라이언트 확인</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(245,158,11,0.2); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--gold);">3</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 60px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">PRIORITIZE — 고가치 Rule 20% 선정 (Pareto)</div>
+            <div style="font-size: 12.5px; color: var(--text2);">EPC 리스크 매트릭스 기반 우선순위 — LD·안전·IFC 릴리즈 블로커에 집중 → Rule 개발 순서 확정 → 도메인 전문가 검토</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(139,92,246,0.2); border: 2px solid var(--purple); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--purple);">4</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 60px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">RULE BUILD — AI 검토 로직 개발 (분야별 Sprint)</div>
+            <div style="font-size: 12.5px; color: var(--text2);">2주 Sprint × N회 — 각 Sprint = 1개 Discipline → Rule 작성 → 샘플 도면 테스트 → PE 검토 피드백 → 수정</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(20,184,166,0.2); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--teal);">5</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 60px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">PILOT — 실제 IFC 패키지 적용 & KPI 측정</div>
+            <div style="font-size: 12.5px; color: var(--text2);">클라이언트 실제 IFC 도면 입력 → AI 리뷰 실행 → 결과 보고서 생성 → PE 검토 vs AI 결과 비교 → KPI 측정</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(249,115,22,0.2); border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--orange);">6</div>
+            <div style="width: 2px; flex: 1; background: var(--border); margin: 4px 0; min-height: 30px;"></div>
+          </div>
+          <div style="padding: 4px 0 20px 16px;">
+            <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">PACKAGE — Playbook 업데이트 & 다음 클라이언트 준비</div>
+            <div style="font-size: 12.5px; color: var(--text2);">학습 내용 → Playbook 업데이트 → Rule 라이브러리 저장 → 프로젝트 갤러리 발행 → 다음 클라이언트 INTAKE 준비</div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ibox purple" style="margin-top: 16px;">
+      <strong>3-1-1 요약 (김상윤 대표용):</strong><br>
+      <strong>결론:</strong> PKU 체크리스트는 ~370개 항목의 AI IFC QA/QC 엔진 개발 명세서이며, 이를 5개 JTBD + 4개 Phase 20주 실행 계획으로 변환했습니다.<br>
+      <strong>근거 3:</strong> (1) 8 Discipline MECE 분석 완료, CELab 온톨로지 Gap 3개 식별. (2) 핵심 KPI 설정 — Coverage ≥60%, Accuracy ≥70%, Time Savings ≥30%. (3) 반복 가능한 6단계 알고리즘 확립 → 다음 클라이언트 적용 속도 2배.<br>
+      <strong>다음 액션:</strong> PKU와 Phase 1 킥오프 미팅 일정 협의 + 샘플 IFC 도면 3종 요청.
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+  <strong>Confidential &amp; Proprietary | SnapScale Internal Use Only</strong><br>
+  근거 자료: PKU "AI-Assisted IFC Drawing QA/QC Review Checklist" (2026) · CELab Wiki CAKE Ontology · SnapScale JTBD Methodology<br>
+  참고 경로: /Users/visionschool/Documents/02 화공플랜트/00. 창업 40s/00. 문건 파일 관리/04. 프로젝트/00. 필즈엔지니어링/
+  <div class="ver">Version 1.0 · 2026-05-29 · Initial JTBD Framework + MECE Analysis + 4-Phase Execution Plan</div>
+</footer>
+
+</body>
+</html>
