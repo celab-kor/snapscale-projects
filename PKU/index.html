@@ -37,9 +37,30 @@ nav .sep{color:var(--text3);}nav .current{color:var(--text2);}
 .s-planned{background:rgba(100,116,139,0.15);color:var(--text3);}
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px 40px;font-size:12px;color:var(--text3);}
 @media(max-width:700px){.hero{padding:40px 20px 36px;}.hero h1{font-size:1.6rem;}.container{padding:30px 20px 60px;}.phase-list{grid-template-columns:1fr 1fr;}}
+#float-nav{position:fixed;top:16px;right:20px;z-index:9999;font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;}
+#float-nav-btn{width:44px;height:44px;border-radius:50%;background:rgba(16,185,129,0.92);color:#000;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;}
+#float-nav-btn:hover{background:#10b981;transform:scale(1.07);}
+#float-nav-menu{display:none;position:absolute;top:52px;right:0;background:rgba(10,22,40,0.97);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px 0;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+#float-nav-menu.fn-open{display:block;}
+.fn-header{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(16,185,129,0.65);padding:8px 16px 4px;}
+.fn-divider{height:1px;background:rgba(255,255,255,0.07);margin:4px 0;}
+.fn-item{display:block;padding:9px 16px;color:#d1d9e6;text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;transition:background .15s,color .15s;}
+.fn-item:hover{background:rgba(255,255,255,0.07);color:#10b981;}
 </style>
 </head>
 <body>
+<div id="float-nav">
+  <button id="float-nav-btn" title="메뉴">&#9776;</button>
+  <div id="float-nav-menu">
+    <div class="fn-header">바로가기</div>
+    <a class="fn-item" href="../index.html">🏠 SnapScale Projects</a>
+    <a class="fn-item" href="https://celab-kor.github.io/celab-knowledge-base/" target="_blank">📚 지식창고</a>
+    <a class="fn-item" href="https://celab-wiki.pages.dev" target="_blank">📖 CELab Wiki</a>
+    <div class="fn-divider"></div>
+    <a class="fn-item" href="http://localhost:8765/_player.html" target="_blank">🎬 CELab Player</a>
+    <a class="fn-item" href="http://localhost:8765/fgti_player.html" target="_blank">🎥 FGTi Player</a>
+  </div>
+</div>
 <nav>
   <a href="../index.html">🏠 SnapScale Projects</a>
   <span class="sep">/</span>
@@ -118,5 +139,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px 40p
 
 </div>
 <footer>PKU Project · SnapScale Projects Gallery · Confidential</footer>
+<script>(function(){var b=document.getElementById('float-nav-btn'),m=document.getElementById('float-nav-menu');b.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('fn-open');});document.addEventListener('click',function(){m.classList.remove('fn-open');});})();</script>
 </body>
 </html>
